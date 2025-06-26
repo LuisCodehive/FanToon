@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Eye, Package, DollarSign, TrendingUp, Calendar, Mail, Phone, Loader2 } from "lucide-react"
+import { Search, Eye, Package, DollarSign, TrendingUp, Calendar, Mail, Phone, Loader2,FileDown } from "lucide-react"
 import Link from "next/link"
 import type { Order } from "@/lib/firebase/types"
 
@@ -322,14 +322,14 @@ export default function AdminDashboard() {
                         </td>
                         <td className="py-4 px-4">
                           <div>
-                            <div className="font-semibold">{order?.customer?.name}</div>
+                            <div className="font-semibold">{order?.customerName}</div>
                             <div className="text-sm text-gray-600 flex items-center">
                               <Mail className="w-3 h-3 mr-1" />
-                              {order?.customer?.email}
+                              {order?.customerEmail}
                             </div>
                             <div className="text-sm text-gray-600 flex items-center">
                               <Phone className="w-3 h-3 mr-1" />
-                              {order?.customer?.phone}
+                              {order?.customerPhone}
                             </div>
                           </div>
                         </td>
@@ -363,6 +363,12 @@ export default function AdminDashboard() {
                             <Button size="sm" variant="outline">
                               <Eye className="w-4 h-4 mr-1" />
                               Ver
+                            </Button>
+                          </Link>
+                                                    <Link href={`https://toonfan.s3.us-east-1.amazonaws.com/${order.preOrderId}.pdf`}>
+                            <Button size="sm" variant="outline">
+                              <FileDown className="w-4 h-4 mr-1" />
+                              Descargar
                             </Button>
                           </Link>
                         </td>
