@@ -97,7 +97,7 @@ export default function AdminDashboard() {
           order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
           order.customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           order.customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          order.bookDetails.childName.toLowerCase().includes(searchTerm.toLowerCase()),
+          order.bookDetails?.childName.toLowerCase().includes(searchTerm.toLowerCase()),
       )
     }
 
@@ -131,8 +131,22 @@ export default function AdminDashboard() {
     })
   }
 
+  function formatDate2(timestamp) {
+  if (!timestamp?.seconds) return "";
+
+  const date = new Date(timestamp.seconds * 1000 + Math.floor(timestamp.nanoseconds / 1e6));
+  return date.toLocaleDateString("es-AR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+
   const formatPrice = (price: number) => {
-    return `$${price.toLocaleString()} ARS`
+    return `$${price} ARS`
   }
 
   if (!isAuthenticated) {
@@ -342,7 +356,7 @@ export default function AdminDashboard() {
                           </Badge>
                         </td>
                         <td className="py-4 px-4">
-                          <div className="text-sm">{formatDate(order.createdAt)}</div>
+                          <div className="text-sm">{formatDate2(order.createdAt)}</div>
                         </td>
                         <td className="py-4 px-4">
                           <Link href={`/pedido/${order.id}`}>

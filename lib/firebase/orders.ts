@@ -19,6 +19,20 @@ export interface Order {
   userId: string
 }
 
+interface PaymentInfo {
+  status: "completed" | "pending"
+  method: string
+  transactionId: string
+  amount: number
+  currency: string
+  paidAt?: string
+  paymentMethodId?: string
+  paymentTypeId?: string
+  installments?: number
+  rawData?: Record<string, any>
+}
+
+
 export const createOrder = async (
   orderData: Omit<Order, "id" | "createdAt" | "updatedAt"> & { userId: string },
 ): Promise<string> => {
@@ -83,5 +97,28 @@ export const getAllOrders = async (): Promise<Order[]> => {
   } catch (error: any) {
     console.error("Error fetching orders:", error)
     throw new Error(error.message || "Failed to fetch orders")
+  }
+}
+
+
+export const updateOrderStatus = async (
+  orderId: string,
+  newStatus: Order["status"],
+  options?: { payment?: PaymentInfo }
+): Promise<void> => {
+  try {
+    const updates: Partial<Order> = {
+      status: newStatus,
+    }
+
+    if (options?.payment) {
+      // Puedes guardar la info de pago en un subcampo si usas Firestore con estructura anidada
+      (updates as any).payment = options.payment
+    }
+
+    await updateOrder(orderId, updates)
+  } catch (error: any) {
+    console.error("Error updating order status:", error)
+    throw new Error(error.message || "Failed to update order status")
   }
 }

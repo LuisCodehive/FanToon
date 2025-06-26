@@ -109,7 +109,7 @@ export default function OrderStatusPage() {
   }
 
   const formatPrice = (price: number) => {
-    return `$${price.toLocaleString()} ARS`
+    return `$${price} ARS`
   }
 
   if (loading) {
@@ -163,49 +163,31 @@ export default function OrderStatusPage() {
           </div>
 
           {/* Status Progress */}
-          <Card className="mb-8">
+                    <Card className="mb-8">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Estado actual</h3>
                 <Badge className={ORDER_STATUS_COLORS[order.status]}>{ORDER_STATUS_LABELS[order.status]}</Badge>
               </div>
-
               <Progress value={getProgressPercentage()} className="h-3 mb-4" />
-
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div
-                  className={`p-3 rounded-lg ${order.status === "paid" ? "bg-blue-100" : order.status === "pending" ? "bg-yellow-100" : "bg-gray-100"}`}
-                >
-                  <CheckCircle
-                    className={`w-6 h-6 mx-auto mb-2 ${order.status !== "pending" ? "text-green-500" : "text-gray-400"}`}
-                  />
+                <div className={`p-3 rounded-lg ${order.status === "paid" ? "bg-blue-100" : order.status === "pending" ? "bg-yellow-100" : "bg-gray-100"}`}>
+                  <CheckCircle className={`w-6 h-6 mx-auto mb-2 ${order.status !== "pending" ? "text-green-500" : "text-gray-400"}`} />
                   <p className="text-sm font-medium">Pago</p>
                 </div>
-                <div
-                  className={`p-3 rounded-lg ${order.status === "processing" || order.status === "generating" ? "bg-orange-100" : order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "bg-green-100" : "bg-gray-100"}`}
-                >
-                  <Clock
-                    className={`w-6 h-6 mx-auto mb-2 ${order.status === "processing" || order.status === "generating" ? "text-orange-500" : order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "text-green-500" : "text-gray-400"}`}
-                  />
+                <div className={`p-3 rounded-lg ${order.status === "processing" || order.status === "generating" ? "bg-orange-100" : order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "bg-green-100" : "bg-gray-100"}`}>
+                  <Clock className={`w-6 h-6 mx-auto mb-2 ${order.status === "processing" || order.status === "generating" ? "text-orange-500" : order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "text-green-500" : "text-gray-400"}`} />
                   <p className="text-sm font-medium">Generación</p>
                 </div>
-                <div
-                  className={`p-3 rounded-lg ${order.status === "completed" ? "bg-green-100" : order.status === "shipped" || order.status === "delivered" ? "bg-blue-100" : "bg-gray-100"}`}
-                >
-                  <Package
-                    className={`w-6 h-6 mx-auto mb-2 ${order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "text-green-500" : "text-gray-400"}`}
-                  />
+                <div className={`p-3 rounded-lg ${order.status === "completed" ? "bg-green-100" : order.status === "shipped" || order.status === "delivered" ? "bg-blue-100" : "bg-gray-100"}`}>
+                  <Package className={`w-6 h-6 mx-auto mb-2 ${order.status === "completed" || order.status === "shipped" || order.status === "delivered" ? "text-green-500" : "text-gray-400"}`} />
                   <p className="text-sm font-medium">Listo</p>
                 </div>
                 <div className={`p-3 rounded-lg ${order.status === "delivered" ? "bg-green-100" : "bg-gray-100"}`}>
-                  <Truck
-                    className={`w-6 h-6 mx-auto mb-2 ${order.status === "delivered" ? "text-green-500" : "text-gray-400"}`}
-                  />
+                  <Truck className={`w-6 h-6 mx-auto mb-2 ${order.status === "delivered" ? "text-green-500" : "text-gray-400"}`} />
                   <p className="text-sm font-medium">Entregado</p>
                 </div>
               </div>
-
-              {/* Queue Position */}
               {queuePosition && (order.status === "processing" || order.status === "generating") && (
                 <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
                   <div className="flex items-center space-x-2">
@@ -217,8 +199,6 @@ export default function OrderStatusPage() {
                   </p>
                 </div>
               )}
-
-              {/* Refresh Button */}
               {(order.status === "processing" || order.status === "generating") && (
                 <div className="mt-4 text-center">
                   <Button variant="outline" onClick={loadOrder} size="sm">
@@ -244,24 +224,24 @@ export default function OrderStatusPage() {
                 <CardContent className="space-y-3">
                   <div>
                     <label className="text-sm font-medium text-gray-700">Protagonista</label>
-                    <div className="text-lg font-semibold">{order.bookDetails.childName}</div>
+                    <div className="text-lg font-semibold">{order.childName}</div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Equipo</label>
-                    <div>{order.bookDetails.team?.name || "No especificado"}</div>
+                    <div>{order.team?.name || "No especificado"}</div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Entrenador</label>
-                    <div>{order.bookDetails.coach}</div>
+                    <div>{order.coach}</div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Trofeo</label>
-                    <div>{order.bookDetails.trophy}</div>
+                    <div>{order.trophy}</div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Jugadores</label>
                     <div className="flex flex-wrap gap-1 mt-1">
-                      {order.bookDetails.players.map((player, index) => (
+                      {order.players.map((player, index) => (
                         <Badge key={index} variant="outline" className="text-xs">
                           {player}
                         </Badge>
@@ -271,7 +251,7 @@ export default function OrderStatusPage() {
                   <div>
                     <label className="text-sm font-medium text-gray-700">Foto</label>
                     <div>
-                      {order.bookDetails.photoUrl ? (
+                      {order?.photoUrl ? (
                         <Badge className="bg-green-100 text-green-800">✓ Subida</Badge>
                       ) : (
                         <Badge className="bg-gray-100 text-gray-800">Sin foto</Badge>
@@ -292,11 +272,11 @@ export default function OrderStatusPage() {
                 <CardContent className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <Mail className="w-4 h-4 text-gray-400" />
-                    <span>{order.customer.email}</span>
+                    <span>{order.customerEmail}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Phone className="w-4 h-4 text-gray-400" />
-                    <span>{order.customer.phone}</span>
+                    <span>{order.customerPhone}</span>
                   </div>
                 </CardContent>
               </Card>
@@ -343,14 +323,14 @@ export default function OrderStatusPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between">
-                    <span>{order.product.title}</span>
-                    <span>{formatPrice(order.product.price)}</span>
+                    <span>{order.productTitle}</span>
+                    <span>{formatPrice(order.productPrice)}</span>
                   </div>
 
                   {order.shipping && (
                     <div className="flex justify-between">
                       <span>Envío</span>
-                      <span>{formatPrice(order.shipping.cost)}</span>
+                      <span>{formatPrice(order?.shipping.cost)}</span>
                     </div>
                   )}
 
