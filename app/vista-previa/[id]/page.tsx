@@ -195,7 +195,7 @@ export default function PreviewPage() {
                     </p>
                   </div>
 
-                  {["policia", "bombero", "actor", "cocinero"].includes(preOrder.bookDetails.storyType)? (
+                  {["policia", "bombero", "actor", "cocinero", "astronauta"].includes(preOrder.bookDetails.storyType)? (
                     <div>
                       <strong>Profesión:</strong>
                       <p>{preOrder.bookDetails.storyType}</p>
