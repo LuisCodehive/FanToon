@@ -304,7 +304,7 @@ export default function CreateBookPage() {
                 </>
               ) : (
                 <>
-                  <span>Ver vista previa</span>
+                  <span>Siguiente</span>
                   <ChevronRight className="w-4 h-4" />
                 </>
               )}

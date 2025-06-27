@@ -209,7 +209,7 @@ export default function StepPhoto({ value, onChange }: StepPhotoProps) {
                   <div className="text-center">
                     <h3 className="font-semibold text-green-800 mb-1">Foto subida correctamente</h3>
                     <p className="text-sm text-green-600 mb-3">{value.name}</p>
-                    <p className="text-sm text-gray-600 mb-4">Tamaño: {(value.size / 1024 / 1024).toFixed(2)} MB</p>
+                    {/* <p className="text-sm text-gray-600 mb-4">Tamaño: {(value.size / 1024 / 1024).toFixed(2)} MB</p> */}
                     <div className="flex justify-center space-x-2">
                       <Button
                         variant="outline"
