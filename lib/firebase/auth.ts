@@ -1,6 +1,7 @@
 import {
   signInWithPopup,
   GoogleAuthProvider,
+  FacebookAuthProvider,
   signOut as firebaseSignOut,
   onAuthStateChanged,
   type User,
@@ -9,11 +10,14 @@ import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore"
 import { auth, db } from "./config"
 
 const googleProvider = new GoogleAuthProvider()
+const facebookProvider = new FacebookAuthProvider()
 
 // Configurar el proveedor de Google
 googleProvider.setCustomParameters({
   prompt: "select_account",
 })
+
+
 
 export interface UserProfile {
   uid: string
@@ -70,6 +74,54 @@ export const signInWithGoogle = async (): Promise<UserProfile> => {
     throw new Error(getAuthErrorMessage(error.code))
   }
 }
+
+
+export const signInWithFacebook = async (): Promise<UserProfile> => {
+  try {
+    const result = await signInWithPopup(auth, facebookProvider)
+    const user = result.user
+
+    // Crear o actualizar perfil de usuario en Firestore
+    const userProfile: UserProfile = {
+      uid: user.uid,
+      email: user.email!,
+      name: user.displayName!,
+      photoURL: user.photoURL || undefined,
+      createdAt: new Date().toISOString(),
+      lastLoginAt: new Date().toISOString(),
+      ordersCount: 0,
+    }
+
+    // Verificar si el usuario ya existe
+    const userDoc = await getDoc(doc(db, "users", user.uid))
+
+    if (userDoc.exists()) {
+      // Usuario existente - solo actualizar último login
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          lastLoginAt: serverTimestamp(),
+          photoURL: user.photoURL || undefined,
+          name: user.displayName!,
+        },
+        { merge: true },
+      )
+    } else {
+      // Nuevo usuario - crear perfil completo
+      await setDoc(doc(db, "users", user.uid), {
+        ...userProfile,
+        createdAt: serverTimestamp(),
+        lastLoginAt: serverTimestamp(),
+      })
+    }
+
+    return userProfile
+  } catch (error: any) {
+    console.error("Error signing in with Facebook:", error)
+    throw new Error(getAuthErrorMessage(error.code))
+  }
+}
+
 
 export const signOut = async (): Promise<void> => {
   try {

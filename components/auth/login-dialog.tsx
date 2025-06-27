@@ -2,9 +2,15 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { Loader2 } from "lucide-react"
-import { signInWithGoogle } from "@/lib/firebase/auth"
+import { signInWithGoogle, signInWithFacebook } from "@/lib/firebase/auth"
 import { toast } from "@/hooks/use-toast"
 
 interface LoginDialogProps {
@@ -13,13 +19,40 @@ interface LoginDialogProps {
   onSuccess?: () => void
 }
 
-export default function LoginDialog({ open, onOpenChange, onSuccess }: LoginDialogProps) {
+export default function LoginDialog({
+  open,
+  onOpenChange,
+  onSuccess,
+}: LoginDialogProps) {
   const [loading, setLoading] = useState(false)
 
   const handleGoogleSignIn = async () => {
     try {
       setLoading(true)
       await signInWithGoogle()
+
+      toast({
+        title: "¡Bienvenido!",
+        description: "Has iniciado sesión correctamente",
+      })
+
+      onOpenChange(false)
+      onSuccess?.()
+    } catch (error: any) {
+      toast({
+        title: "Error al iniciar sesión",
+        description: error.message,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleFacebookSignIn = async () => {
+    try {
+      setLoading(true)
+      await signInWithFacebook()
 
       toast({
         title: "¡Bienvenido!",
@@ -54,7 +87,8 @@ export default function LoginDialog({ open, onOpenChange, onSuccess }: LoginDial
             <div className="text-6xl">📚</div>
             <h3 className="text-lg font-semibold">¡Creá tu libro único!</h3>
             <p className="text-sm text-gray-600">
-              Inicia sesión para personalizar y crear libros de colorear únicos para los más chicos
+              Inicia sesión para personalizar y crear libros de colorear únicos
+              para los más chicos
             </p>
           </div>
 
@@ -90,8 +124,31 @@ export default function LoginDialog({ open, onOpenChange, onSuccess }: LoginDial
             )}
           </Button>
 
+          <Button
+            onClick={handleFacebookSignIn}
+            disabled={loading}
+            className="w-full bg-[#1877F2] hover:bg-[#145db2] text-white flex items-center justify-center space-x-2"
+          >
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <>
+                <svg
+                  className="w-5 h-5"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M22.675 0h-21.35C.599 0 0 .6 0 1.326v21.348C0 23.4.599 24 1.325 24h11.49V14.708h-3.13v-3.622h3.13V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.796.716-1.796 1.763v2.31h3.587l-.467 3.622h-3.12V24h6.116C23.4 24 24 23.401 24 22.674V1.326C24 .6 23.4 0 22.675 0z" />
+                </svg>
+                <span>Continuar con Facebook</span>
+              </>
+            )}
+          </Button>
+
           <div className="text-xs text-gray-500 text-center">
-            Al continuar, aceptas nuestros términos de servicio y política de privacidad
+            Al continuar, aceptas nuestros términos de servicio y política de
+            privacidad
           </div>
         </div>
       </DialogContent>
