@@ -1,0 +1,6 @@
+openai
+requests
+fpdf
+pillow
+firebase-admin
+boto3

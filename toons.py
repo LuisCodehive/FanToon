@@ -67,11 +67,14 @@ def upload_pdf_to_s3(file_path, bucket_name, object_name):
 def generar_textos(nombre, tipo, club=None, jugadores=None, trofeo=None, dt=None, profesion=None):
     if tipo.lower() == "deporte":
         prompt = f"""
+        
         Escribí un cuento infantil dividido en 3 escenas, cada una con una narración breve (3 a 5 líneas).
         El protagonista se llama {nombre}, es fanático de {club} y sueña con ganar la {trofeo}.
         Sus ídolos son {jugadores} y su director técnico favorito es {dt}.
         La historia debe comenzar con {nombre} soñando con el club y terminar levantando la {trofeo}.
         Estilo: cuento infantil, en español, con tono positivo.
+
+        
         """
     else:
         prompt = f"""

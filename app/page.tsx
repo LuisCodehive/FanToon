@@ -264,7 +264,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4 text-orange-400">Producto</h3>
+              {/* <h3 className="font-semibold mb-4 text-orange-400">Producto</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <Link href="#como-funciona" className="hover:text-orange-400">
@@ -281,11 +281,11 @@ export default function HomePage() {
                     Precios
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4 text-blue-400">Soporte</h3>
+              {/* <h3 className="font-semibold mb-4 text-blue-400">Soporte</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
                   <Link href="/ayuda" className="hover:text-blue-400">
@@ -302,7 +302,7 @@ export default function HomePage() {
                     Términos y condiciones
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
 
             <div>

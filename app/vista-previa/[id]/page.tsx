@@ -171,6 +171,8 @@ export default function PreviewPage() {
                       <div className="text-center">
                         <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
                         <p>Generando vista previa...</p>
+                        <p>Por favor, no refresques la página mientras se genera el Libro.</p>
+                        <p>Esto puede demorar 5 minutos o más.</p>
                       </div>
                     </div>
                   )}
@@ -228,11 +230,11 @@ export default function PreviewPage() {
                     ¡Me encanta! Continuar
                   </Button>
 
-                  <Button onClick={handleEditBook} variant="outline" className="w-full" size="lg">
+                  {/* <Button onClick={handleEditBook} variant="outline" className="w-full" size="lg">
                     Editar detalles
-                  </Button>
+                  </Button> */}
 
-                  <div className="grid grid-cols-2 gap-2">
+                  {/* <div className="grid grid-cols-2 gap-2">
                     <Button variant="outline" size="sm" className="text-xs">
                       <Download className="w-4 h-4 mr-1" />
                       Descargar
@@ -241,7 +243,7 @@ export default function PreviewPage() {
                       <Share2 className="w-4 h-4 mr-1" />
                       Compartir
                     </Button>
-                  </div>
+                  </div> */}
                 </CardContent>
               </Card>
 

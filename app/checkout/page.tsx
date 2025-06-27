@@ -29,25 +29,25 @@ const PRODUCT_OPTIONS: Record<string, ProductOption> = {
   pdf: {
     id: "pdf",
     title: "Libro Digital PDF",
-    price: 2999,
+    price: 5999,
     description: "Descarga inmediata del libro personalizado",
   },
-  "tapa-blanda": {
-    id: "tapa-blanda",
-    title: "Libro Impreso Tapa Blanda",
-    price: 13999,
-    description: "Libro físico con impresión profesional",
-    productionTime: "5 días de producción",
-    shipping: true,
-  },
-  "tapa-dura": {
-    id: "tapa-dura",
-    title: "Libro Impreso Tapa Dura",
-    price: 24999,
-    description: "Edición premium con tapa dura",
-    productionTime: "5 días de producción",
-    shipping: true,
-  },
+  // "tapa-blanda": {
+  //   id: "tapa-blanda",
+  //   title: "Libro Impreso Tapa Blanda",
+  //   price: 13999,
+  //   description: "Libro físico con impresión profesional",
+  //   productionTime: "5 días de producción",
+  //   shipping: true,
+  // },
+  // "tapa-dura": {
+  //   id: "tapa-dura",
+  //   title: "Libro Impreso Tapa Dura",
+  //   price: 24999,
+  //   description: "Edición premium con tapa dura",
+  //   productionTime: "5 días de producción",
+  //   shipping: true,
+  // },
 }
 
 const PROVINCES = [
