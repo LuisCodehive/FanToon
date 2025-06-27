@@ -289,6 +289,7 @@ export default function CheckoutPage() {
       // Create MercadoPago preference
       const preferenceData = {
         orderId: orderResult.orderId,
+        preOrderId:preOrderId,
         customerName: formData.name,
         customerEmail: formData.email,
         customerPhone: formData.phone,

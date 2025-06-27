@@ -20,8 +20,8 @@ export default function PreviewPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
 
-   const intervalRef = useRef<NodeJS.Timer | null>(null)
-   
+  const intervalRef = useRef<NodeJS.Timer | null>(null)
+
   useEffect(() => {
     const fetchPreOrder = async () => {
       if (!params.id) return
@@ -34,7 +34,7 @@ export default function PreviewPage() {
           setPreOrder(result.preOrder)
           const po: PreOrder = result.preOrder
 
-          console.log("po.status",po.status)
+          console.log("po.status", po.status)
           if (po.status === "generate_ok" && intervalRef.current) {
             clearInterval(intervalRef.current)
             intervalRef.current = null
@@ -53,7 +53,7 @@ export default function PreviewPage() {
 
     fetchPreOrder()
 
-        // Iniciar polling cada 10s
+    // Iniciar polling cada 10s
     intervalRef.current = setInterval(fetchPreOrder, 10000)
 
     return () => {
@@ -162,10 +162,10 @@ export default function PreviewPage() {
                 <CardContent>
                   {preOrder.status == "generate_ok" ? (
                     <div className="border rounded-lg overflow-hidden">
-                      <VisorPDF fileUrl={"https://toonfan.s3.us-east-1.amazonaws.com/"+params.id+".pdf"} />
+                      <VisorPDF fileUrl={"https://toonfan.s3.us-east-1.amazonaws.com/" + params.id + ".pdf"} />
                       {/* <iframe src={preOrder.previewUrl} className="w-full h-[600px]" title="Vista previa del libro" /> */}
                     </div>
-                    
+
                   ) : (
                     <div className="flex items-center justify-center h-[600px] bg-gray-100 rounded-lg">
                       <div className="text-center">
@@ -190,28 +190,40 @@ export default function PreviewPage() {
                 <CardContent className="space-y-3">
                   <div>
                     <strong>Protagonista:</strong>
-                    <p className="text-lg text-purple-600 font-semibold">{preOrder.bookDetails.childName}</p>
+                    <p className="text-lg text-purple-600 font-semibold">
+                      {preOrder.bookDetails.childName}
+                    </p>
                   </div>
-                  <div>
-                    <strong>Equipo:</strong>
-                    <p>{preOrder.bookDetails.team?.name || "No seleccionado"}</p>
-                  </div>
-                  <div>
-                    <strong>Entrenador:</strong>
-                    <p>{preOrder.bookDetails.coach}</p>
-                  </div>
-                  <div>
-                    <strong>Trofeo:</strong>
-                    <p>{preOrder.bookDetails.trophy}</p>
-                  </div>
-                  <div>
-                    <strong>Jugadores:</strong>
-                    <p>{preOrder.bookDetails.players.join(", ")}</p>
-                  </div>
-                  <div>
-                    <strong>Foto:</strong>
-                    <p>{preOrder.photo ? "✅ Incluida" : "❌ Sin foto"}</p>
-                  </div>
+
+                  {["policia", "bombero", "actor", "cocinero"].includes(preOrder.bookDetails.storyType)? (
+                    <div>
+                      <strong>Profesión:</strong>
+                      <p>{preOrder.bookDetails.storyType}</p>
+                    </div>
+                  ) : (
+                    <>
+                      <div>
+                        <strong>Equipo:</strong>
+                        <p>{preOrder.bookDetails.team?.name || "No seleccionado"}</p>
+                      </div>
+                      <div>
+                        <strong>Entrenador:</strong>
+                        <p>{preOrder.bookDetails.coach || "No indicado"}</p>
+                      </div>
+                      <div>
+                        <strong>Trofeo:</strong>
+                        <p>{preOrder.bookDetails.trophy || "No indicado"}</p>
+                      </div>
+                      <div>
+                        <strong>Jugadores:</strong>
+                        <p>{preOrder.bookDetails.players?.join(", ") || "No indicados"}</p>
+                      </div>
+                      <div>
+                        <strong>Foto:</strong>
+                        <p>{preOrder.photo ? "✅ Incluida" : "❌ Sin foto"}</p>
+                      </div>
+                    </>
+                  )}
                 </CardContent>
               </Card>
 

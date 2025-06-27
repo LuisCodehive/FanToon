@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    const { orderId, customerName, customerEmail, customerPhone, items, shippingCost = 0, shippingAddress } = body
+    const { orderId,preOrderId, customerName, customerEmail, customerPhone, items, shippingCost = 0, shippingAddress } = body
 
     // Validate required fields
     if (!orderId || !customerName || !customerEmail || !items || !Array.isArray(items)) {
@@ -38,9 +38,9 @@ export async function POST(request: NextRequest) {
         ...(phoneData && { phone: phoneData }),
       },
       back_urls: {
-        success: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/exito?order=${orderId}`,
-        failure: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/error?order=${orderId}`,
-        pending: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/pendiente?order=${orderId}`,
+        success: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/exito?order=${preOrderId}`,
+        failure: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/error?order=${preOrderId}`,
+        pending: `${process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"}/pago/pendiente?order=${preOrderId}`,
       },
       auto_return: "approved",
       external_reference: formatOrderReference(orderId),

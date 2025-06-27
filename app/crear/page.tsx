@@ -77,9 +77,19 @@ export default function CreateBookPage() {
   const steps = getSteps()
 
   const nextStep = () => {
+    console.log("next step",currentStep)
+    
+
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1)
     }
+
+    if(formData.storyType!= "futbol" && currentStep == 2){
+      
+      handleFinish()
+    
+    }
+
   }
 
   const prevStep = () => {

@@ -97,7 +97,7 @@ export default function OptionsPage() {
           <p className="text-xl text-gray-600 mb-6">Elegí cómo querés recibir tu libro personalizado</p>
 
           {/* Book Preview */}
-          <div className="max-w-md mx-auto mb-8">
+          {/* <div className="max-w-md mx-auto mb-8">
             <Card className="transform hover:scale-105 transition-transform">
               <CardContent className="p-6">
                 <Image
@@ -110,7 +110,7 @@ export default function OptionsPage() {
                 <p className="text-sm text-gray-600 mt-4">Vista previa de tu libro personalizado</p>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
         </div>
 
         {/* Options */}
