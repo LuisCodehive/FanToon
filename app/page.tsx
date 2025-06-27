@@ -74,7 +74,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center space-x-2">
-                      <span className="text-3xl font-bold text-orange-500">$4,999</span>
+                      <span className="text-3xl font-bold text-orange-500">$5,999</span>
                     </div>
                     <span className="text-orange-500 font-semibold">Libro digital PDF</span>
                   </div>

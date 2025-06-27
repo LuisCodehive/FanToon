@@ -684,7 +684,7 @@ export default function CheckoutPage() {
                   </div>
 
                   {/* Quantity Selector */}
-                  <div className="flex justify-between items-center">
+                  {/* <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-3">
                       <span>Cantidad:</span>
                       <div className="flex items-center border rounded-lg">
@@ -705,7 +705,7 @@ export default function CheckoutPage() {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {quantity > 1 && (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
